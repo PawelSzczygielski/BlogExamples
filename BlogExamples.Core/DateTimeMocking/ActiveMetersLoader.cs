@@ -4,6 +4,6 @@ namespace BlogExamples.Core.DateTimeMocking
 {
     public interface IAmActiveMetersLoader
     {
-        List<long> ReloadAllActiveMeters();
+        void ReloadAllActiveMeters();
     }
 }

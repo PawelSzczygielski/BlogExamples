@@ -41,7 +41,8 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="DateTimeMocking\ActiveMetersLoader.cs" />
-    <Compile Include="DateTimeMocking\DateTimeDependendProductionCode.cs" />
+    <Compile Include="DateTimeMocking\SystemTime.cs" />
+    <Compile Include="DateTimeMocking\SystemTimeDependendProductionCode.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

@@ -1,14 +1,12 @@
 ﻿using System;
-using System.Collections.Generic;
 
 namespace BlogExamples.Core.DateTimeMocking
 {
-    public class DateTimeDependendProductionCode
+    public class SystemTimeDependendProductionCode
     {
-        private IAmActiveMetersLoader _meterLoader;
-        private List<long> _activeMeters;
+        private readonly IAmActiveMetersLoader _meterLoader;
 
-        public DateTimeDependendProductionCode(IAmActiveMetersLoader meterLoader)
+        public SystemTimeDependendProductionCode(IAmActiveMetersLoader meterLoader)
         {
             _meterLoader = meterLoader;
             TimeForNextPeriodicCheck = DateTime.Now.Date.AddHours(22); //Check should be conducted always at 22:00
@@ -16,18 +14,18 @@ namespace BlogExamples.Core.DateTimeMocking
 
         public void DoPeriodicCheckIfNeeded()
         {
-            var isItTimeForPeriodicCheck = TimeForNextPeriodicCheck < DateTime.Now;
+            var isItTimeForPeriodicCheck = TimeForNextPeriodicCheck < SystemTime.Now;
             if (!isItTimeForPeriodicCheck)
                 return;
 
-            _activeMeters = _meterLoader.ReloadAllActiveMeters();
+            _meterLoader.ReloadAllActiveMeters();
 
             TimeForNextPeriodicCheck = ComputeTimeForNextCheck();
         }
 
         #region Irrelevant
         private DateTime TimeForNextPeriodicCheck { get; set; }        
-        private DateTime ComputeTimeForNextCheck()
+        private static DateTime ComputeTimeForNextCheck()
         {
             return DateTime.Now.AddMinutes(1);
         }
