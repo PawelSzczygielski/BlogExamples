@@ -9,7 +9,7 @@ namespace BlogExamples.Core.DateTimeMocking
         public SystemTimeDependendProductionCode(IAmActiveMetersLoader meterLoader)
         {
             _meterLoader = meterLoader;
-            TimeForNextPeriodicCheck = DateTime.Now.Date.AddHours(22); //Check should be conducted always at 22:00
+            TimeForNextPeriodicCheck = SystemTime.Now.Date.AddHours(22); //Check should be conducted always at 22:00
         }
 
         public void DoPeriodicCheckIfNeeded()
