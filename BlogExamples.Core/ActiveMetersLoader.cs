@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-namespace BlogExamples.Core.DateTimeMocking
+namespace BlogExamples.Core
 {
     public interface IAmActiveMetersLoader
     {

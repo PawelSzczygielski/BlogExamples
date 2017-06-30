@@ -2,19 +2,21 @@
 
 namespace BlogExamples.Core
 {
-    public class SystemTimeDependendProductionCode
+    public class DateTimeProviderDependentProductionCode
     {
         private readonly IAmActiveMetersLoader _meterLoader;
+        private readonly IAmDateTimeProvider _dateTimeProvider;
 
-        public SystemTimeDependendProductionCode(IAmActiveMetersLoader meterLoader)
+        public DateTimeProviderDependentProductionCode(IAmActiveMetersLoader meterLoader, IAmDateTimeProvider dateTimeProvider)
         {
             _meterLoader = meterLoader;
-            TimeForNextPeriodicCheck = SystemTime.Now.Date.AddHours(22); //Check should be conducted always at 22:00
+            _dateTimeProvider = dateTimeProvider;
+            TimeForNextPeriodicCheck = _dateTimeProvider.Now.Date.AddHours(22);
         }
 
         public void DoPeriodicCheckIfNeeded()
         {
-            var isItTimeForPeriodicCheck = TimeForNextPeriodicCheck < SystemTime.Now;
+            var isItTimeForPeriodicCheck = TimeForNextPeriodicCheck < _dateTimeProvider.Now;
             if (!isItTimeForPeriodicCheck)
                 return;
 
@@ -24,7 +26,7 @@ namespace BlogExamples.Core
         }
 
         #region Irrelevant
-        private DateTime TimeForNextPeriodicCheck { get; set; }        
+        private DateTime TimeForNextPeriodicCheck { get; set; }
         private static DateTime ComputeTimeForNextCheck()
         {
             return DateTime.Now.AddMinutes(1);
