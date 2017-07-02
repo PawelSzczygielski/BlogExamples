@@ -1,6 +1,7 @@
-﻿using FakeItEasy;
-using NUnit.Framework;
+﻿using NUnit.Framework;
+using Smocks;
 using System;
+using System.Threading;
 
 namespace BlogExamples.Tests.Fakes
 {
@@ -10,9 +11,15 @@ namespace BlogExamples.Tests.Fakes
         [Test]
         public void test()
         {
-            var data = DateTime.Now;
-            A.CallTo(() => DateTime.Now).Returns(new DateTime(2017, 5, 5, 22, 34, 12));
-            var datas = DateTime.Now;
+            Smock.Run(context =>
+            {
+                context.Setup(() => DateTime.Now).Returns(new DateTime(2000, 1, 1));
+
+                var dateNow = DateTime.Now;
+                Assert.That(dateNow, Is.EqualTo(new DateTime(3000, 1, 1)));
+                Console.WriteLine("ttu");
+                Thread.Sleep(2220);
+            });
         }
     }
 }
